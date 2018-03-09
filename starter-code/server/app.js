@@ -8,6 +8,8 @@ const layouts      = require('express-ejs-layouts');
 const mongoose     = require('mongoose');
 const cors         = require('cors');
 
+var journalApi = require("./routes/api/journal-entries");
+
 mongoose.connect('mongodb://localhost/journal-development');
 
 const app = express();
@@ -31,6 +33,7 @@ app.use(layouts);
 
 const index = require('./routes/index');
 app.use('/', index);
+app.use("/api", journalApi);
 
 app.all('/*', function (req, res) {
   res.sendfile(__dirname + '/public/index.html');
